@@ -10,9 +10,12 @@ import json
 #webbrowser.open_new_tab(url)
 #exit()
 
-vkapi = vk.API(access_token='8bf0a9047f82296483991c51707569cc30dcc605a751f630992470b62f19e1102129c5fcf20ad22130722')
-
 word = sys.argv[1]
+
+txt_file = open(word + '.txt', "w")
+html_file = open(word + '.html', "w")
+
+vkapi = vk.API(access_token='copy_token_here')
 
 result = vkapi.groups.search(q = word, offset = 0, count = 100)
 
@@ -24,7 +27,9 @@ json_tree = result['items']
 for item in json_tree:
     link = 'http://vk.com/club' + str(item['id'])
     name = item['name']
-    full_link = '<a href="' + link + '">' + link + '</a>'
-    print(full_link + '\t' + name + '<br>')
+    tag_link = '<a href="' + link + '">' + link + '</a>' + '\t' + name + '<br>'
+    txt_file.write(link + '\n')
+    html_file.write(tag_link + '\n')
 
-
+txt_file.close()
+html_file.close()
